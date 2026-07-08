@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SimpleEdu - Panduan & Log Perubahan</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    :root {
+      --bg: #070913;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --bg-card-hover: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(99, 102, 241, 0.25);
+      --text: #f0f4ff;
+      --text-muted: #8892a4;
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.15);
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --font-main: 'Plus Jakarta Sans', sans-serif;
+      --font-title: 'Space Grotesk', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 900px) {
+      .container {
+        grid-template-columns: 350px 1fr;
+      }
+    }
+
+    /* Glass Card Style */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card:hover {
+      border-color: var(--border-accent);
+      box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.1);
+    }
+
+    /* Sidebar Column */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .brand-section {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-logo {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      color: white;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .brand-logo svg {
+      width: 36px;
+      height: 36px;
+      stroke: #fff;
+    }
+
+    .brand-title {
+      font-family: var(--font-title);
+      font-size: 1.75rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #ffffff, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .brand-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .tech-badge-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tech-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .tech-badge i {
+      color: var(--accent);
+    }
+
+    /* Main Content Column */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .section-title {
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.50rem;
+    }
+
+    .section-title i {
+      color: var(--primary);
+    }
+
+    .description-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Features list */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 600px) {
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      transition: all 0.2s ease;
+    }
+
+    .feature-item:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon-wrapper {
+      width: 32px;
+      height: 32px;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+
+    .feature-text h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .feature-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Timeline (Changelog) */
+    .timeline {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: 0.5rem;
+      bottom: 0.5rem;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: calc(-1.5rem - 3px);
+      top: 0.4rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 2px solid var(--bg);
+      transition: background-color 0.3s ease;
+    }
+
+    .timeline-item.active::before {
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-badge.current {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    .timeline-badge.previous {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .timeline-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-content {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-content ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .timeline-content li {
+      position: relative;
+      padding-left: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .timeline-content li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* Dev Profile & Contacts */
+    .dev-profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .dev-avatar {
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .dev-info h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .dev-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--primary);
+      text-decoration: none;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+
+    .contact-link:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+
+    /* Action Button */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.85rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Sidebar Column -->
+    <div class="sidebar">
+      <!-- Brand Card -->
+      <div class="card brand-section">
+        <div class="brand-logo">
+          <i data-lucide="graduation-cap"></i>
+        </div>
+        <h1 class="brand-title">SimpleEdu</h1>
+        <p class="brand-tagline">Admin Guru Masa Kini</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+          Platform manajemen administrasi sekolah modern, cepat, & aman berbasis penyimpanan lokal (serverless).
+        </p>
+        <div class="tech-badge-container">
+          <span class="tech-badge"><i data-lucide="atom"></i> React.js</span>
+          <span class="tech-badge"><i data-lucide="zap"></i> Vite</span>
+          <span class="tech-badge"><i data-lucide="database"></i> LocalStorage</span>
+          <span class="tech-badge"><i data-lucide="smartphone"></i> PWA</span>
+        </div>
+      </div>
+
+      <!-- Action Card -->
+      <div class="card">
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; font-family: var(--font-title);">Buka Aplikasi</h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          Aplikasi ini didesain standalone dan siap dijalankan langsung di Vercel atau server statis Anda.
+        </p>
+        <a href="index.html" class="btn">
+          <i data-lucide="external-link"></i> Jalankan Aplikasi
+        </a>
+      </div>
+
+      <!-- Developer Card -->
+      <div class="card">
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 1rem; font-family: var(--font-title);">Pengembang</h3>
+        <div class="dev-profile">
+          <div class="dev-avatar">
+            <i data-lucide="user"></i>
+          </div>
+          <div class="dev-info">
+            <h4>Fadli Rahman, S.Pd</h4>
+            <p>SMK Negeri 2 Sebulu</p>
+          </div>
+        </div>
+        <a href="http://www.fadlirahman.my.id" target="_blank" class="contact-link">
+          <i data-lucide="globe"></i> Kunjungi Website Pengembang
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Content Column -->
+    <div class="main-content">
+      <!-- Features Card -->
+      <div class="card">
+        <h2 class="section-title"><i data-lucide="star"></i> Fitur Utama</h2>
+        <div class="features-grid">
+          
+          <div class="feature-item">
+            <div class="feature-icon-wrapper"><i data-lucide="layout-dashboard"></i></div>
+            <div class="feature-text">
+              <h4>Dashboard & Grafik</h4>
+              <p>Visualisasi tren kehadiran siswa dan statistik ringkas real-time.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-wrapper"><i data-lucide="users"></i></div>
+            <div class="feature-text">
+              <h4>Manajemen Data</h4>
+              <p>Kelola siswa/mapel dengan mudah secara lokal, mendukung impor CSV.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-wrapper"><i data-lucide="book-open"></i></div>
+            <div class="feature-text">
+              <h4>Jurnal & Absensi</h4>
+              <p>Input kehadiran siswa serta materi harian dalam hitungan detik.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-wrapper"><i data-lucide="printer"></i></div>
+            <div class="feature-text">
+              <h4>Ekspor & Cetak PDF</h4>
+              <p>Cetak laporan absensi, jurnal, dan rekap nilai siap print.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-wrapper"><i data-lucide="shield"></i></div>
+            <div class="feature-text">
+              <h4>Keamanan Akun</h4>
+              <p>Enkripsi otentikasi akun lokal dan fitur ganti password mandiri.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-wrapper"><i data-lucide="smartphone"></i></div>
+            <div class="feature-text">
+              <h4>Progressive Web App (PWA)</h4>
+              <p>Pasang di perangkat HP/PC Anda dan gunakan secara offline.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Changelog Card -->
+      <div class="card">
+        <h2 class="section-title"><i data-lucide="history"></i> Log Perubahan (Changelog)</h2>
+        <div class="timeline">
+
+          <!-- v1.3.6 -->
+          <div class="timeline-item active">
+            <div class="timeline-header">
+              <span class="timeline-badge current">v1.3.6 (Versi Terbaru)</span>
+              <span class="timeline-date">Juli 2026</span>
+            </div>
+            <h3 class="timeline-title">Clean Storage & Production Release</h3>
+            <div class="timeline-content" style="margin-top: 0.5rem;">
+              <ul>
+                <li><strong>Mengosongkan Data Dummy</strong>: Variabel data awal dibersihkan (di-set `[]` untuk siswa dan mata pelajaran) agar aplikasi kosong dan siap diisi data sekolah asli ketika pertama kali dijalankan.</li>
+                <li><strong>Penghapusan Tombol Reset ke Contoh</strong>: Tombol "Reset ke Data Dummy" di Dashboard resmi dihapus guna menghindari ketidaksengajaan terhapusnya data operasional penting guru.</li>
+                <li><strong>Dokumentasi HTML Interaktif</strong>: Menambahkan berkas <code>readme.html</code> yang memuat panduan, fitur, serta catatan perubahan ini.</li>
+                <li><strong>Re-build Produksi</strong>: Seluruh aset statis diperbarui demi performa maksimal saat di-deploy ke Vercel.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- v1.3.5 -->
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <span class="timeline-badge previous">v1.3.5</span>
+              <span class="timeline-date">Juni 2026</span>
+            </div>
+            <h3 class="timeline-title">Deployment Optimization Update</h3>
+            <div class="timeline-content" style="margin-top: 0.5rem;">
+              <ul>
+                <li>Penghapusan berkas server lokal (<code>server.js</code> & <code>database.json</code>) demi keringanan total ukuran aplikasi.</li>
+                <li>Penyelarasan konfigurasi aplikasi 100% menggunakan <em>LocalStorage</em> browser untuk integrasi hosting serverless.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- v1.3.0 -->
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <span class="timeline-badge previous">v1.3.0</span>
+              <span class="timeline-date">Mei 2025</span>
+            </div>
+            <h3 class="timeline-title">Major Security & UI Update</h3>
+            <div class="timeline-content" style="margin-top: 0.5rem;">
+              <ul>
+                <li>Implementasi sistem otentikasi login/registrasi lokal.</li>
+                <li>Fitur ganti sandi pada pengaturan institusi.</li>
+                <li>Penerapan ambient background aurora dengan rounded layout premium (24px).</li>
+                <li>Pencarian data master serta pagination dinamis.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer style="text-align: center; margin-top: 3rem; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+    &copy; 2026 SimpleEdu. Membantu Guru, Memajukan Pendidikan Indonesia.
+  </footer>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
